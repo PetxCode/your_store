@@ -1,4 +1,6 @@
+import { VariantProps } from "class-variance-authority";
 import { Document } from "mongoose";
+import { ReactNode } from "react";
 
 export interface iUser {
   name: string;
@@ -19,3 +21,10 @@ export interface iProduct {
 }
 
 export interface iProductData extends iProduct, Document {}
+
+export interface iButton
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof newButtonVar> {
+  children: ReactNode;
+  icon?: ReactNode;
+}
