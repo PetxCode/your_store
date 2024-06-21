@@ -1,6 +1,7 @@
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const options = {
+export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -49,12 +50,12 @@ export const options = {
       return "/";
     },
     async jwt({ token, user }: any) {
-      if (user) user.role = token.role;
+      if (user) token.role = user.role;
 
       return token;
     },
     async session({ session, token }: any) {
-      if (session) session.token.role = token.role;
+      if (session) session.user.role = token.role;
 
       return session;
     },
@@ -67,3 +68,15 @@ export const options = {
     // },
   },
 };
+
+// async jwt({ user, token }: any) {
+//     if (user) token.role = user.role;
+
+//     return token;
+//   },
+
+//   async session({ session, token }: any) {
+//     if (session) session.user.role = token.role;
+
+//     return session;
+//   },
